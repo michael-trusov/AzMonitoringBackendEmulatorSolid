@@ -12,15 +12,15 @@ namespace AZMA.AzFuncBackendEmulator
 {
     public static class FuncWithCustomizedResponseDelayAndResponseCode
     {
-        [FunctionName("FuncBee")]
+        [FunctionName("backend-emulator")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest httpRequest, ILogger log)
         {
-            log.LogInformation("'FuncBee' was triggered...");
+            log.LogInformation("'backend-emulator' was triggered...");
 
             if (httpRequest.Query.ContainsKey("delay"))
             {
                 int delay = int.Parse(httpRequest.Query["delay"]);
-                log.LogDebug("'FuncBee' delay is '{delay}'", delay);
+                log.LogDebug("'backend-emulator' delay is '{delay}'", delay);
 
                 Thread.Sleep(delay);
             }
@@ -28,7 +28,7 @@ namespace AZMA.AzFuncBackendEmulator
             if (httpRequest.Query.ContainsKey("responseStatusCode"))
             {
                 int responseStatusCode = int.Parse(httpRequest.Query["responseStatusCode"]);
-                log.LogDebug("'FuncBee' response status code is '{responseStatusCode}'", responseStatusCode);
+                log.LogDebug("'backend-emulator' response status code is '{responseStatusCode}'", responseStatusCode);
 
                 if (Enum.IsDefined(typeof(HttpStatusCode), responseStatusCode))
                 {
@@ -36,7 +36,7 @@ namespace AZMA.AzFuncBackendEmulator
                 }                
                 else
                 {
-                    log.LogError("'FuncBee' got invalid response status code: {responseStatusCode}", responseStatusCode);
+                    log.LogError("'backend-emulator' got invalid response status code: {responseStatusCode}", responseStatusCode);
                 }
             }
                        
